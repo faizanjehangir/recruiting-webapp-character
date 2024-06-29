@@ -1,10 +1,11 @@
 import Skill from './Skill';
 import { SKILL_LIST } from '../consts';
 
-const SkillsList = ({ skills, attributes, incrementSkill, decrementSkill }) => {
+const SkillsList = ({ skills, attributes, totalSkillPoints, incrementSkill, decrementSkill }) => {
   
   return (
   <div className="skills-list">
+    <h3>Total skill points available {totalSkillPoints}</h3>
     {SKILL_LIST.map(skill => (
       <Skill
         key={skill.name}

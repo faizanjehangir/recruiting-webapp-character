@@ -6,6 +6,7 @@ const CharacterSheet = ({
   character,
   attributes,
   skills,
+  totalSkillPoints,
   incrementAttribute,
   decrementAttribute,
   incrementSkill,
@@ -43,6 +44,7 @@ const CharacterSheet = ({
         <SkillsList
           skills={skills}
           attributes={attributes}
+          totalSkillPoints={totalSkillPoints}
           incrementSkill={(name) => incrementSkill(character.id, name)}
           decrementSkill={(name) => decrementSkill(character.id, name)} />
       </div>

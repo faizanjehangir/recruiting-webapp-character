@@ -24,6 +24,10 @@ function App() {
 
   const selectedCharacter = characters.find(char => char.id === selectedCharacterId);
 
+  const intModifier = Math.floor((selectedCharacter.attributes.Intelligence - 10) / 2);
+  const totalSkillPoints = 10 + (4 * intModifier);
+  const pointsSpent = Object.values(selectedCharacter.skills).reduce((sum, val) => sum + val, 0);
+
   const addCharacter = () => {
     const newCharacter = {
       id: Date.now(),
@@ -105,6 +109,10 @@ function App() {
   };
 
   const incrementSkill = (id, skillName) => {
+    if (totalSkillPoints === pointsSpent) {
+      alert("You need more skill points! Upgrade intelligence to get more");
+      return;
+    }
     setCharacters(characters.map(char => char.id === id ? {
       ...char,
       skills: {
@@ -148,6 +156,7 @@ function App() {
           character={selectedCharacter}
           attributes={selectedCharacter.attributes}
           skills={selectedCharacter.skills}
+          totalSkillPoints={totalSkillPoints}
           incrementAttribute={incrementAttribute}
           decrementAttribute={decrementAttribute}
           incrementSkill={incrementSkill}
