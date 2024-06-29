@@ -71,3 +71,21 @@
   gap: 10px;
   padding-bottom: 5px;
 }
+
+.skill-check {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 20px;
+}
+
+.skill-check div{
+  margin: 10px 0;
+}
+
+.skill-check label {
+  margin-right: 10px;
+}
+
+.skill-check button {
+  margin-top: 10px;
+}

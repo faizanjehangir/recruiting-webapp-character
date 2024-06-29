@@ -63,7 +63,7 @@ function App() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify([selectedCharacter]),
+      body: JSON.stringify(characters),
     })
     .then(response => response.json())
     .then(data => alert('Character saved!', data))

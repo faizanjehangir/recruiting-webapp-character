@@ -1,6 +1,7 @@
 import Attribute from './Attribute';
 import ClassSelection from './ClassSelection';
 import SkillsList from './SkillsList';
+import SkillCheck from './SkillCheck';
 
 const CharacterSheet = ({
   character,
@@ -16,6 +17,7 @@ const CharacterSheet = ({
 }) => (
   <>
     <h2>{character.name}</h2>
+    <SkillCheck character={character} />
     <div className="character-sheet">
       <div className="section">
         <h2>Attributes</h2>
