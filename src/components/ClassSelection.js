@@ -1,4 +1,3 @@
-import React from 'react';
 import { CLASS_LIST } from '../consts';
 
 const ClassSelection = ({ selectedClass, setSelectedClass, attributes }) => {

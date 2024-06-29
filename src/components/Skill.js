@@ -1,4 +1,3 @@
-import React from 'react';
 
 const Skill = ({ name, points, modifier, total, onIncrement, onDecrement }) => (
   <div className="section-rows">

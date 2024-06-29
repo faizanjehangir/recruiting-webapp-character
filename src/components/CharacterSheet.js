@@ -1,5 +1,3 @@
-// src/components/CharacterSheet.js
-import React from 'react';
 import Attribute from './Attribute';
 import ClassSelection from './ClassSelection';
 import SkillsList from './SkillsList';

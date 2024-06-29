@@ -1,4 +1,3 @@
-import React from 'react';
 
 const Attribute = ({ characterId, name, value, modifier, onIncrement, onDecrement }) => {
   return (

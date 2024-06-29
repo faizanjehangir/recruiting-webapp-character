@@ -15,6 +15,20 @@
   color: white;
 }
 
+.character-selector {
+  margin: 20px;
+}
+
+.character-selector button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.character-selector button.selected {
+  background-color: lightblue;
+}
+
 .character-sheet {
   display: flex;
   border: 1px solid #ccc;

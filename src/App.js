@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import CharacterSheet from './components/CharacterSheet.js';
 import { ATTRIBUTE_LIST, SKILL_LIST } from './consts.js';
@@ -19,14 +19,42 @@ const initialCharacter = {
 function App() {
 
   const [characters, setCharacters] = useState([initialCharacter]);
+  const [selectedCharacterId, setSelectedCharacterId] = useState(initialCharacter.id);
   const [selectedClass, setSelectedClass] = useState(null);
-  const [selectedCharacterId, setSelectedCharacterId] = useState(characters[0].id);
+
   const selectedCharacter = characters.find(char => char.id === selectedCharacterId);
+
+  useEffect(() => {
+    fetch(`https://recruiting.verylongdomaintotestwith.ca/api/faizanjehangir/character`)
+      .then(response => response.json())
+      .then(data => {
+        if (data && data.body) {
+          setCharacters(data.body);
+          setSelectedCharacterId(data.body[0].id);
+        }
+      })
+      .catch(error => console.error('Error fetching character data:', error));
+  }, []);
+
+  const saveCharacter = () => {
+    fetch(`https://recruiting.verylongdomaintotestwith.ca/api/faizanjehangir/character`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify([selectedCharacter]),
+    })
+    .then(response => response.json())
+    .then(data => alert('Character saved!', data))
+    .catch(error => console.error('Error saving character data:', error));
+  };
 
   const incrementAttribute = (characterId, attrName) => {
     setCharacters(prevChars => {
       const updatedChars = prevChars.map(char => {
         if (char.id === characterId) {
+          const totalAttributes = Object.values(char.attributes).reduce((sum, val) => sum + val, 0);
+          if (totalAttributes < 70) {
             return {
               ...char,
               attributes: {
@@ -34,7 +62,11 @@ function App() {
                 [attrName]: char.attributes[attrName] + 1
               }
             };
+          } else {
+            alert("A character can have up to 70 Delegated attribute points.");
           }
+        }
+        return char;
       });
       return updatedChars;
     });
@@ -80,6 +112,19 @@ function App() {
       <header className="App-header">
         <h1>React Coding Exercise</h1>
       </header>
+      <div className="character-selector">
+        <h2>Characters</h2>
+        {characters.map(character => (
+          <button
+            key={character.id}
+            onClick={() => setSelectedCharacterId(character.id)}
+            className={character.id === selectedCharacterId ? 'selected' : ''}
+          >
+            {character.name}
+          </button>
+        ))}
+        <button onClick={() => saveCharacter()}>Save Character</button>
+      </div>
       {selectedCharacter && (
         <CharacterSheet
           character={selectedCharacter}
