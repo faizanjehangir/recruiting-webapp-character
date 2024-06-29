@@ -10,6 +10,10 @@ const initialCharacter = {
     acc[attr] = 10;
     return acc;
   }, {}),
+  skills: SKILL_LIST.reduce((acc, skill) => {
+    acc[skill.name] = 0;
+    return acc;
+  }, {}),
 };
 
 function App() {
@@ -51,6 +55,26 @@ function App() {
     }));
   };
 
+  const incrementSkill = (id, skillName) => {
+    setCharacters(characters.map(char => char.id === id ? {
+      ...char,
+      skills: {
+        ...char.skills,
+        [skillName]: char.skills[skillName] + 1,
+      },
+    } : char));
+  };
+
+  const decrementSkill = (id, skillName) => {
+    setCharacters(characters.map(char => char.id === id ? {
+      ...char,
+      skills: {
+        ...char.skills,
+        [skillName]: char.skills[skillName] - 1,
+      },
+    } : char));
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -60,8 +84,11 @@ function App() {
         <CharacterSheet
           character={selectedCharacter}
           attributes={selectedCharacter.attributes}
+          skills={selectedCharacter.skills}
           incrementAttribute={incrementAttribute}
           decrementAttribute={decrementAttribute}
+          incrementSkill={incrementSkill}
+          decrementSkill={decrementSkill}
           selectedClass={selectedClass}
           setSelectedClass={setSelectedClass}
         />

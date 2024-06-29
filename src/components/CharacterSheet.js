@@ -1,12 +1,17 @@
+// src/components/CharacterSheet.js
 import React from 'react';
 import Attribute from './Attribute';
 import ClassSelection from './ClassSelection';
+import SkillsList from './SkillsList';
 
 const CharacterSheet = ({
   character,
   attributes,
+  skills,
   incrementAttribute,
   decrementAttribute,
+  incrementSkill,
+  decrementSkill,
   selectedClass,
   setSelectedClass
 }) => (
@@ -34,6 +39,14 @@ const CharacterSheet = ({
           setSelectedClass={setSelectedClass}
           attributes={attributes} 
         />
+      </div>
+      <div className="section">
+        <h2>Skills</h2>
+        <SkillsList
+          skills={skills}
+          attributes={attributes}
+          incrementSkill={(name) => incrementSkill(character.id, name)}
+          decrementSkill={(name) => decrementSkill(character.id, name)} />
       </div>
     </div>
   </>
