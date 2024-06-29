@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
-import { ATTRIBUTE_LIST, CLASS_LIST, SKILL_LIST } from './consts.js';
+import ClassSelection from './components/ClassSelection.js';
+import { ATTRIBUTE_LIST, SKILL_LIST } from './consts.js';
 
 const initialCharacter = {
   id: Date.now(),
@@ -17,11 +18,6 @@ function App() {
   const [selectedClass, setSelectedClass] = useState(null);
   const [selectedCharacterId, setSelectedCharacterId] = useState(characters[0].id);
   const selectedCharacter = characters.find(char => char.id === selectedCharacterId);
-
-  const meetsClassRequirements = (className) => {
-    const requirements = CLASS_LIST[className];
-    return Object.entries(requirements).every(([attr, value]) => selectedCharacter.attributes[attr] >= value);
-  };
 
   const incrementAttribute = (characterId, attrName) => {
     setCharacters(prevChars => {
@@ -62,29 +58,11 @@ function App() {
       </header>
       <div className="section">
         <h2>Classes</h2>
-        <div className="class-selection">
-          {Object.keys(CLASS_LIST).map(className => (
-            <div
-              key={className}
-              onClick={() => setSelectedClass(className)}
-              style={{
-                backgroundColor: meetsClassRequirements(className) ? 'lightgreen' : 'lightcoral',
-              }}
-            >
-              {className}
-            </div>
-          ))}
-          {selectedClass && (
-            <div>
-              <h3>{selectedClass} Requirements</h3>
-              <ul>
-                {Object.entries(CLASS_LIST[selectedClass]).map(([attr, value]) => (
-                  <li key={attr}>{attr}: {value}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
+        <ClassSelection 
+          selectedClass={selectedClass}
+          setSelectedClass={setSelectedClass}
+          attributes={selectedCharacter.attributes} 
+        />
       </div>
     </div>
   );
