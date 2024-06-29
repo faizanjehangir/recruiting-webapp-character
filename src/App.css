@@ -62,3 +62,20 @@
 .class-selection > div.selected {
   background-color: lightgreen;
 }
+
+.section {
+  align-items: center;
+  border: gray solid 1px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  width: 30%;
+}
+
+.section-rows {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 5px;
+}
