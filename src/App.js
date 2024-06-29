@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import './App.css';
-import ClassSelection from './components/ClassSelection.js';
-import Attribute from './components/Attribute.js';
+import CharacterSheet from './components/CharacterSheet.js';
 import { ATTRIBUTE_LIST, SKILL_LIST } from './consts.js';
 
 const initialCharacter = {
@@ -57,28 +56,16 @@ function App() {
       <header className="App-header">
         <h1>React Coding Exercise</h1>
       </header>
-      <div className="section">
-        <h2>Attributes</h2>
-        {Object.keys(selectedCharacter.attributes).map(attr => (
-          <Attribute
-            key={attr}
-            characterId={selectedCharacter.id}
-            name={attr}
-            value={selectedCharacter.attributes[attr]}
-            modifier={Math.floor((selectedCharacter.attributes[attr] - 10) / 2)}
-            onIncrement={incrementAttribute}
-            onDecrement={decrementAttribute}
-          />
-        ))}
-      </div>
-      <div className="section">
-        <h2>Classes</h2>
-        <ClassSelection 
+      {selectedCharacter && (
+        <CharacterSheet
+          character={selectedCharacter}
+          attributes={selectedCharacter.attributes}
+          incrementAttribute={incrementAttribute}
+          decrementAttribute={decrementAttribute}
           selectedClass={selectedClass}
           setSelectedClass={setSelectedClass}
-          attributes={selectedCharacter.attributes} 
         />
-      </div>
+      )}
     </div>
   );
 }
