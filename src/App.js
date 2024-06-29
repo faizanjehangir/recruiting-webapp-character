@@ -24,6 +24,23 @@ function App() {
 
   const selectedCharacter = characters.find(char => char.id === selectedCharacterId);
 
+  const addCharacter = () => {
+    const newCharacter = {
+      id: Date.now(),
+      name: `Character ${characters.length + 1}`,
+      attributes: ATTRIBUTE_LIST.reduce((acc, attr) => {
+        acc[attr] = 10;
+        return acc;
+      }, {}),
+      skills: SKILL_LIST.reduce((acc, skill) => {
+        acc[skill.name] = 0;
+        return acc;
+      }, {}),
+    };
+    setCharacters([...characters, newCharacter]);
+    setSelectedCharacterId(newCharacter.id);
+  };
+
   useEffect(() => {
     fetch(`https://recruiting.verylongdomaintotestwith.ca/api/faizanjehangir/character`)
       .then(response => response.json())
@@ -123,6 +140,7 @@ function App() {
             {character.name}
           </button>
         ))}
+        <button onClick={addCharacter}>Add Character</button>
         <button onClick={() => saveCharacter()}>Save Character</button>
       </div>
       {selectedCharacter && (
