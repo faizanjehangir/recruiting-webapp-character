@@ -44,3 +44,21 @@
     transform: rotate(360deg);
   }
 }
+
+.class-selection {
+  margin-top: 20px;
+}
+
+.class-selection > div {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin: 5px 0;
+}
+
+.class-selection > div:hover {
+  background-color: lightgray;
+}
+
+.class-selection > div.selected {
+  background-color: lightgreen;
+}

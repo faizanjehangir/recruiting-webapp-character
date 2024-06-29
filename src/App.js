@@ -14,6 +14,14 @@ const initialCharacter = {
 function App() {
 
   const [characters, setCharacters] = useState([initialCharacter]);
+  const [selectedClass, setSelectedClass] = useState(null);
+  const [selectedCharacterId, setSelectedCharacterId] = useState(characters[0].id);
+  const selectedCharacter = characters.find(char => char.id === selectedCharacterId);
+
+  const meetsClassRequirements = (className) => {
+    const requirements = CLASS_LIST[className];
+    return Object.entries(requirements).every(([attr, value]) => selectedCharacter.attributes[attr] >= value);
+  };
 
   const incrementAttribute = (characterId, attrName) => {
     setCharacters(prevChars => {
@@ -52,8 +60,32 @@ function App() {
       <header className="App-header">
         <h1>React Coding Exercise</h1>
       </header>
-      <section className="App-section">
-      </section>
+      <div className="section">
+        <h2>Classes</h2>
+        <div className="class-selection">
+          {Object.keys(CLASS_LIST).map(className => (
+            <div
+              key={className}
+              onClick={() => setSelectedClass(className)}
+              style={{
+                backgroundColor: meetsClassRequirements(className) ? 'lightgreen' : 'lightcoral',
+              }}
+            >
+              {className}
+            </div>
+          ))}
+          {selectedClass && (
+            <div>
+              <h3>{selectedClass} Requirements</h3>
+              <ul>
+                {Object.entries(CLASS_LIST[selectedClass]).map(([attr, value]) => (
+                  <li key={attr}>{attr}: {value}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
